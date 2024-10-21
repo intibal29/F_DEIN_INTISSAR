@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.f.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
-
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.e.HelloController">
+    <TableView fx:id="tablaPersonas" layoutX="30.0" layoutY="63.0" prefHeight="371.0" prefWidth="727.0">
+        <columns>
+            <TableColumn fx:id="colNombre" prefWidth="293.0" text="NOMBRE" />
+            <TableColumn fx:id="colApellidos" prefWidth="136.0" text="APELLIDOS" />
+            <TableColumn fx:id="colEdad" prefWidth="129.0" text="EDAD" />
+        </columns>
+    </TableView>
+    <Button fx:id="btnAgregarPersona" layoutX="162.0" layoutY="447.0" mnemonicParsing="false" onAction="#agregarPersona" text="Agregar Persona" />
+    <Button fx:id="btnModificarPersona" layoutX="308.0" layoutY="447.0" mnemonicParsing="false" onAction="#modificarPersona" prefHeight="24.0" prefWidth="143.0" text="Modificar" />
+    <Button fx:id="btnEliminarPersona" layoutX="467.0" layoutY="447.0" mnemonicParsing="false" onAction="#eliminarPersona" prefHeight="24.0" prefWidth="121.0" text="Eliminar" />
+   <Label layoutX="48.0" layoutY="24.0" text="Filtrar por nombre " />
+   <TextField layoutX="179.0" layoutY="20.0" />
+</AnchorPane>

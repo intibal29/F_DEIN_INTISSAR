@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="248.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.e.AgregarPersonaController">
+    <TextField fx:id="txtNombre" layoutX="121.0" layoutY="50.0" prefHeight="24.0" prefWidth="293.0" />
+    <TextField fx:id="txtApellidos" layoutX="121.0" layoutY="106.0" prefHeight="24.0" prefWidth="293.0" />
+    <TextField fx:id="txtEdad" layoutX="121.0" layoutY="161.0" prefHeight="24.0" prefWidth="116.0" />
+    <Text layoutX="15.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" />
+    <Text layoutX="11.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos" />
+    <Text layoutX="41.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edad" />
+    <Button layoutX="121.0" layoutY="208.0" mnemonicParsing="false" onAction="#guardarPersona" prefHeight="24.0" prefWidth="86.0" text="Guardar" />
+    <Button layoutX="243.0" layoutY="208.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="24.0" prefWidth="97.0" text="Cancelar" />
+</AnchorPane>

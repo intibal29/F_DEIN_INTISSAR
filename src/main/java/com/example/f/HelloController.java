@@ -73,7 +73,10 @@ public class HelloController {
         txtFiltro.textProperty().addListener((observable, oldValue, newValue) -> filtrarLista());
     }
 
-    // Método para filtrar la lista
+    /**
+     * Filtra la lista de personas según el texto ingresado en el campo de filtro.
+     * Actualiza la tabla para mostrar solo las personas cuyo nombre contiene el texto filtrado.
+     */
     @FXML
     private void filtrarLista() {
         String filtro = txtFiltro.getText().toLowerCase();
@@ -232,6 +235,12 @@ public class HelloController {
         }
     }
 
+    /**
+     * Muestra una alerta de información con el título y mensaje proporcionados.
+     *
+     * @param titulo  El título de la alerta.
+     * @param mensaje El mensaje que se mostrará en la alerta.
+     */
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
         alerta.setTitle(titulo);
@@ -240,4 +249,3 @@ public class HelloController {
         alerta.showAndWait();
     }
 }
-

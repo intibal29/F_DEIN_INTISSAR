@@ -32,7 +32,7 @@ public class HelloApplication extends Application {
         primaryStage.setTitle("Personas");
 
         // Crear una nueva escena con el contenido del archivo FXML cargado y establecer las dimensiones de la ventana.
-        // La ventana se establecerá con un tamaño de 600 píxeles de ancho y 400 píxeles de alto.
+        // La ventana se establecerá con un tamaño de 800 píxeles de ancho y 500 píxeles de alto.
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.setResizable(false);
         // Mostrar la ventana principal en la pantalla.

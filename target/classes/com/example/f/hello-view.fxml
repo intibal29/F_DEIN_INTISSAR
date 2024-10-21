@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.f.HelloController">
+    <!-- Campo de texto para filtrar la lista -->
+    <TextField fx:id="txtFiltro" promptText="Filtrar por nombre" onKeyReleased="#filtrarLista"/>
+
+    <!-- Tabla donde se mostrarán las personas -->
+    <TableView fx:id="tablaPersonas">
+        <columns>
+            <TableColumn fx:id="colNombre" text="Nombre"/>
+            <TableColumn fx:id="colApellidos" text="Apellidos"/>
+            <TableColumn fx:id="colEdad" text="Edad"/>
+        </columns>
+    </TableView>
+
+    <!-- Contenedor para los botones de acción -->
+    <HBox spacing="10">
+        <Button text="Agregar" onAction="#agregarPersona"/>
+        <Button text="Modificar" onAction="#modificarPersona"/>
+        <Button text="Eliminar" onAction="#eliminarPersona"/>
+        <Button text="Importar" onAction="#importarDatos"/>
+        <Button text="Exportar" onAction="#exportarDatos"/>
+    </HBox>
+</VBox>
+

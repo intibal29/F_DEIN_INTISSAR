@@ -12,7 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.List;
+
 
 /**
  * El controlador {@code HelloController} gestiona la lógica de la interfaz principal,
@@ -30,15 +30,12 @@ public class HelloController {
     @FXML
     private TextField txtEdad;
 
-    // Campo de texto para filtrar
     @FXML
     private TextField txtFiltro;
 
-    // Tabla donde se mostrarán las personas
     @FXML
     private TableView<Persona> tablaPersonas;
 
-    // Columnas de la tabla para mostrar los nombres, apellidos y edades
     @FXML
     private TableColumn<Persona, String> colNombre;
 

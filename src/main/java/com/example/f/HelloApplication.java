@@ -18,25 +18,20 @@ public class HelloApplication extends Application {
      * El método {@code start} es el punto de entrada para la aplicación JavaFX.
      * Este método se ejecuta cuando la aplicación se inicia y se encarga de configurar y mostrar la ventana principal.
      *
-     * @param primaryStage El escenario principal (ventana) de la aplicación donde se muestra la interfaz.
+     * @param stage El escenario principal (ventana) de la aplicación donde se muestra la interfaz.
      * @throws Exception Si ocurre un error al cargar el archivo FXML o al crear la ventana.
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception {
         // Cargar el archivo FXML que contiene la estructura de la interfaz de usuario.
-        // El archivo hello-view.fxml define el diseño y los componentes de la ventana.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/f/hello-view.fxml"));
         Parent root = loader.load();  // Carga el contenido del archivo FXML en un objeto Parent.
-
-        // Establecer el título de la ventana principal.
-        primaryStage.setTitle("Personas");
-
+        stage.setTitle("Personas");
         // Crear una nueva escena con el contenido del archivo FXML cargado y establecer las dimensiones de la ventana.
-        // La ventana se establecerá con un tamaño de 800 píxeles de ancho y 500 píxeles de alto.
-        primaryStage.setScene(new Scene(root, 800, 500));
-        primaryStage.setResizable(false);
+        stage.setScene(new Scene(root, 800, 500));
+        stage.setResizable(false);
         // Mostrar la ventana principal en la pantalla.
-        primaryStage.show();
+        stage.show();
     }
 
     /**

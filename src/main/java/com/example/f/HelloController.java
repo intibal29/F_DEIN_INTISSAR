@@ -7,10 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.List;
 
 /**
  * El controlador {@code HelloController} gestiona la lógica de la interfaz principal,
@@ -27,6 +29,10 @@ public class HelloController {
 
     @FXML
     private TextField txtEdad;
+
+    // Campo de texto para filtrar
+    @FXML
+    private TextField txtFiltro;
 
     // Tabla donde se mostrarán las personas
     @FXML
@@ -62,6 +68,23 @@ public class HelloController {
 
         // Asignar la lista observable a la tabla
         tablaPersonas.setItems(listaPersonas);
+
+        // Listener para el campo de filtrado
+        txtFiltro.textProperty().addListener((observable, oldValue, newValue) -> filtrarLista());
+    }
+
+    // Método para filtrar la lista
+    @FXML
+    private void filtrarLista() {
+        String filtro = txtFiltro.getText().toLowerCase();
+        ObservableList<Persona> listaFiltrada = FXCollections.observableArrayList();
+
+        for (Persona persona : listaPersonas) {
+            if (persona.getNombre().toLowerCase().contains(filtro)) {
+                listaFiltrada.add(persona);
+            }
+        }
+        tablaPersonas.setItems(listaFiltrada);
     }
 
     /**
@@ -103,27 +126,14 @@ public class HelloController {
     }
 
     /**
-     * Selecciona una persona de la tabla y carga sus datos en los campos de texto.
-     */
-    @FXML
-    private void seleccionarPersona() {
-        Persona personaSeleccionada = tablaPersonas.getSelectionModel().getSelectedItem();
-        if (personaSeleccionada != null) {
-            txtNombre.setText(personaSeleccionada.getNombre());
-            txtApellidos.setText(personaSeleccionada.getApellidos());
-            txtEdad.setText(String.valueOf(personaSeleccionada.getEdad()));
-        }
-    }
-
-    /**
      * Abre una ventana modal para agregar o modificar una persona.
      *
-     * @param titulo Título de la ventana.
+     * @param titulo  Título de la ventana.
      * @param persona La persona a modificar, o null para agregar una nueva.
      */
     private void mostrarVentanaModal(String titulo, Persona persona) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/e/AgregarPersona.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/f/AgregarPersona.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
@@ -152,17 +162,76 @@ public class HelloController {
                 }
             }
         } catch (IOException e) {
-            // e.printStackTrace();
             mostrarAlerta("Error", "No se pudo abrir la ventana.");
         }
     }
 
     /**
-     * Muestra una alerta de información con el título y mensaje proporcionados.
-     *
-     * @param titulo El título de la alerta.
-     * @param mensaje El mensaje que se mostrará en la alerta.
+     * Método para importar datos desde un archivo CSV.
      */
+    @FXML
+    private void importarDatos() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Importar Datos");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        File file = fileChooser.showOpenDialog(tablaPersonas.getScene().getWindow());
+        if (file != null) {
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line;
+                br.readLine(); // Ignorar la cabecera
+                while ((line = br.readLine()) != null) {
+                    String[] data = line.split(",");
+                    if (data.length == 3) {
+                        String nombre = data[0].trim();
+                        String apellidos = data[1].trim();
+                        int edad = Integer.parseInt(data[2].trim());
+
+                        // Comprobar si la persona ya existe
+                        if (listaPersonas.stream().noneMatch(p -> p.getNombre().equals(nombre) && p.getApellidos().equals(apellidos))) {
+                            listaPersonas.add(new Persona(nombre, apellidos, edad));
+                        } else {
+                            mostrarAlerta("Error", "La persona " + nombre + " " + apellidos + " ya existe.");
+                        }
+                    } else {
+                        mostrarAlerta("Error", "Formato de línea no válido: " + line);
+                    }
+                }
+                mostrarAlerta("Éxito", "Datos importados correctamente.");
+            } catch (IOException | NumberFormatException e) {
+                mostrarAlerta("Error", "No se pudo importar el archivo: " + e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Método para exportar datos a un archivo CSV.
+     */
+    @FXML
+    private void exportarDatos() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Exportar Datos");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        File file = fileChooser.showSaveDialog(tablaPersonas.getScene().getWindow());
+        if (file != null) {
+            if (!file.getName().endsWith(".csv")) {
+                file = new File(file.getAbsolutePath() + ".csv");
+            }
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+                bw.write("Nombre,Apellidos,Edad");
+                bw.newLine();
+                for (Persona persona : listaPersonas) {
+                    bw.write(persona.getNombre() + "," + persona.getApellidos() + "," + persona.getEdad());
+                    bw.newLine();
+                }
+                mostrarAlerta("Éxito", "Datos exportados correctamente.");
+            } catch (IOException e) {
+                mostrarAlerta("Error", "No se pudo exportar el archivo: " + e.getMessage());
+            }
+        }
+    }
+
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
         alerta.setTitle(titulo);
@@ -171,3 +240,4 @@ public class HelloController {
         alerta.showAndWait();
     }
 }
+

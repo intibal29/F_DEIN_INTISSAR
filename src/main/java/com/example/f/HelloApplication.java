@@ -25,7 +25,7 @@ public class HelloApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Cargar el archivo FXML que contiene la estructura de la interfaz de usuario.
         // El archivo hello-view.fxml define el diseño y los componentes de la ventana.
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/e/hello-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/f/hello-view.fxml"));
         Parent root = loader.load();  // Carga el contenido del archivo FXML en un objeto Parent.
 
         // Establecer el título de la ventana principal.
@@ -33,7 +33,7 @@ public class HelloApplication extends Application {
 
         // Crear una nueva escena con el contenido del archivo FXML cargado y establecer las dimensiones de la ventana.
         // La ventana se establecerá con un tamaño de 600 píxeles de ancho y 400 píxeles de alto.
-        primaryStage.setScene(new Scene(root, 800, 450));
+        primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.setResizable(false);
         // Mostrar la ventana principal en la pantalla.
         primaryStage.show();
